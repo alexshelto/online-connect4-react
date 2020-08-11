@@ -309,7 +309,7 @@ class Board extends React.Component {
         status = 'Winner: ' + winner;
       }
     } else {
-      status = 'Next player: ' + (this.state.redIsNext ? 'Red' : 'Blue');
+      status = 'Next player: ' + (this.state.redIsNext ? 'X' : 'O');
     }
 
     var slots = [];
