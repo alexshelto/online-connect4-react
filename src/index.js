@@ -113,8 +113,8 @@ function LobbyList(props) {
 
 const states = {
   NOT_CONNECTED: "not_connected",
-  PLAYER_RED: "player_red", //formarly player x
-  PLAYER_BLUE: "player_blue" //formarly player o
+  PLAYER_RED: "player_X", //formarly player x
+  PLAYER_BLUE: "player_O" //formarly player o
 };
 
 

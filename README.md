@@ -1,7 +1,8 @@
 # Online multiplayer hangman using React and Peerjs
-# Decentralized and hosted with IPFS peer to peer
+## Decentralized and hosted with IPFS peer to peer
+
+## How to access the webpage
+https://ipfs.io/ipfs/QmfGsuNtDAPQxhXMZzXQKfATRPKFBtHyjnePNz4NZhFqyA
 
 
-CID: Qme3Av7DUAajUN4DrAQg2V5Nyt1c6uexRKPyC1LaRPyDd5
-https://ipfs.io/ipfs/Qme3Av7DUAajUN4DrAQg2V5Nyt1c6uexRKPyC1LaRPyDd5
 
