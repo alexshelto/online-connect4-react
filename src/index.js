@@ -1,24 +1,8 @@
 
-/*
+// Alexander Shelton
+// Index.js
 
-
-PLAYER WHO JOINS OTHER IS PLAYER_RED
-
-
-TODO: set color for placement or just different symbols
-TODO: GAME LOGIC 
-*/
-
-
-
-/*  CONNECT FOUR BOARD
-
-
-BUG IN CHANGING TURNS
-
-
-
-*/
+// TODO: set color for placement or just different symbols
 
 
 
@@ -41,14 +25,19 @@ function calculateWinner(slots) {
 
   // if(slots.includes(null) === false){return 'draw';}
 
+
+  //Checking for draw
   let filled = 0;
   for(let row = 0; row < slots.length; row++){
     for(let col = 0; col < slots[row].length; col++){
       if(slots[row][col]){filled++;}
+      else{break;}  //exit loop on first empty element
     }
   }
   if(filled === slots.length * slots[0].length){return 'draw';}
 
+
+  //checking vertical
   for(let row = 0; row < slots.length; row++){
     for(let col = 0; col < slots[row].length-3; col++){
       if(slots[row][col] != null && slots[row][col] === slots[row][col+1] && slots[row][col] === slots[row][col+2] && slots[row][col] === slots[row][col+3]){
@@ -67,6 +56,7 @@ function calculateWinner(slots) {
     }
   }
 
+  //checking diaganol: 1
   for(let row = 0; row < 2; row++){
     for(let col = 0; col < slots[row].length - 3; col++ ){
       if(slots[row][col] != null && slots[row][col] === slots[row+1][col+1] && slots[row][col] === slots[row+2][col+2] && slots[row][col] === slots[row+3][col+3]) {
@@ -75,6 +65,7 @@ function calculateWinner(slots) {
     }
   }
 
+  //checking diaganol: 2
   for(let row = 0; row < slots.length - 3; row++) {
     for(let col = 3; col < slots[row].length; col++) {
       if (slots[row][col] != null && slots[row][col] === slots[row+1][col-1] && slots[row][col] === slots[row+2][col-2] && slots[row][col] === slots[row+3][col-3]){
@@ -83,7 +74,7 @@ function calculateWinner(slots) {
     }
   }
   }
-  return ;
+  return ; //return if no winner yet
 }
 
 
@@ -96,7 +87,6 @@ function calculateWinner(slots) {
   }
 
 // Function LobbyList:
-// 
 // Returns a list of 'friends' or users that are on the webpage
 function LobbyList(props) {
   const friends = props.friends;
@@ -136,7 +126,6 @@ class Board extends React.Component {
 
     this.state.peer.on('open', (id) => {
       this.setState({peer_id: id}); //Assign random peerid to state
-      // WHY LCONN?
 
       //connecting using peer
       // lconn is RED
@@ -163,7 +152,6 @@ class Board extends React.Component {
         this.setState({inlobby: data});
       });
 
-
     }); //end of peer.on('open')
 
 
@@ -176,7 +164,6 @@ class Board extends React.Component {
       //If not already connected, set the states for the connection
       if (this.state.conn == null) {
         this.setState({conn: conn, connState: states.PLAYER_BLUE});
-
 
         //Blue recieving data:
         conn.on('data', (data) => {
@@ -198,17 +185,7 @@ class Board extends React.Component {
   }
 
   // Function places the chip into the lowest possible row
-  apply_gravity(row,col,slots) {
-    //row needs fixed
-    // let cords = [];
-    // let maxLevel = 5;
-    // while(maxLevel > 0) {
-    //   if(slots[maxLevel][col] == null) {
-    //     break;
-    //   }
-    //   console.log("Found coords in check_move function " + maxLevel + " , " + col);
-    //   return Array(maxLevel, col);
-    // }
+  drop_chip(row,col,slots) {
     let max = 5;
     while(max > row) {
       if(slots[max][col] == null) {
@@ -219,8 +196,6 @@ class Board extends React.Component {
     }
     return [max, col];
   }
-
-
 
 
 
@@ -238,7 +213,7 @@ class Board extends React.Component {
     var slots = [];
     for(let i = 0; i < this.state.slots.length; i++){slots[i] = this.state.slots[i].slice();}
     console.log("Sliced array");
-    let move = this.apply_gravity(x,y, this.state.slots);
+    let move = this.drop_chip(x,y, this.state.slots);
 
     console.log("received this array from check move function: " + move);
 
@@ -247,16 +222,10 @@ class Board extends React.Component {
       console.log('slot taken');
       return;
     }
-
     let sendData = JSON.stringify(move);
     this.state.conn.send(sendData);
-    console.log('just sent the data: ' + sendData);
-    console.log("meep");
 
     slots[move[0]][move[1]] = this.state.redIsNext? 'X' : 'O';
-    // if(this.state.redIsNext) {slots[move[0]][move[1]] = 'X'; console.log("marked x position at: " + move[0] + " , " + move[1]);}
-    // else{slots[move[0]][move[1]] = 'O';console.log("Marked O position at " + move[0] + " , " + move[1]);}
-
     this.setState({
       slots: slots,
       redIsNext: !this.state.redIsNext, //changing turn
@@ -267,7 +236,6 @@ class Board extends React.Component {
     renderSlot(row,col, slots) {
       return <Slot
         value={slots[row][col]}
-        style={{color: 'red'}}
         onClick={() => this.handleClick(row,col)}
       />;
     }
@@ -283,16 +251,11 @@ class Board extends React.Component {
       this.setState({conn: conn, connState: states.PLAYER_RED}); // Assinging connection and player role
     });
 
-    //
     conn.on('data', (data) => {
-      console.log("Recieved data! ");
       let recieved_data = JSON.parse(data);
       console.log("Data recieved: " + recieved_data);
-      // console.log('Recived back', Array(data));
       if (!this.state.redIsNext) {
         // handle O press
-        console.log("This is sent into handle fake click from conn.on data: " + recieved_data);
-        // console.log("Recieved move: " + ar);
         this.handleFakeClick(recieved_data[0], recieved_data[1]);
       }
     });
@@ -397,7 +360,6 @@ class Game extends React.Component {
   //invoked after component inserted into tree
   //initializations that require DOM nodes 
   //Initialize network requests
-
   componentDidMount() {
     console.log("trying to create lobby");
 
@@ -436,7 +398,7 @@ class Game extends React.Component {
       window.setTimeout(expire, 1000); //continuing to call itself to expire clients
     } //end expire
 
-    expire(); //gets
+    expire();
   }
 
 
