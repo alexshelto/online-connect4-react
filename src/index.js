@@ -38,6 +38,17 @@ const LOBBY_NAME = "hangman";
 
 function calculateWinner(slots) {
   //checking all hz four in a row:
+
+  // if(slots.includes(null) === false){return 'draw';}
+
+  let filled = 0;
+  for(let row = 0; row < slots.length; row++){
+    for(let col = 0; col < slots[row].length; col++){
+      if(slots[row][col]){filled++;}
+    }
+  }
+  if(filled === slots.length * slots[0].length){return 'draw';}
+
   for(let row = 0; row < slots.length; row++){
     for(let col = 0; col < slots[row].length-3; col++){
       if(slots[row][col] != null && slots[row][col] === slots[row][col+1] && slots[row][col] === slots[row][col+2] && slots[row][col] === slots[row][col+3]){
