@@ -22,12 +22,12 @@ ol, ul {
   margin-bottom: 10px;
 }
 
-.square {
+.slot {
   background-color: #444444;
   color: white;
   border: 0.1vw solid #fff;
-  width: 7vw;
-  height: 7vw;
+  width: 6vw;
+  height: 6vw;
   line-height: 0;
   float: left;
   font-size: 7vw;
@@ -100,7 +100,7 @@ input.connect-button:active {
 
 .lobby {
   position: absolute;
-  right: 10%;
+  right: 5%;
   top: 2%;
   width: 42vw;
   overflow: hidden;
