@@ -1,11 +1,7 @@
 
 // Alexander Shelton
 // Index.js
-
 // TODO: set color for placement or just different symbols
-
-
-
 
 
 
@@ -19,13 +15,7 @@ const LOBBY_NAME = "hangman";
 // const RED = 'red'; 
 
 
-
 function calculateWinner(slots) {
-  //checking all hz four in a row:
-
-  // if(slots.includes(null) === false){return 'draw';}
-
-
   //Checking for draw
   let filled = 0;
   for(let row = 0; row < slots.length; row++){
@@ -41,7 +31,6 @@ function calculateWinner(slots) {
   for(let row = 0; row < slots.length; row++){
     for(let col = 0; col < slots[row].length-3; col++){
       if(slots[row][col] != null && slots[row][col] === slots[row][col+1] && slots[row][col] === slots[row][col+2] && slots[row][col] === slots[row][col+3]){
-        console.log("Found winnder");
         return slots[row][col];
       }
     }
@@ -51,16 +40,14 @@ function calculateWinner(slots) {
   for(let col = 0; col < 6; col++){
     for(let row = 0; row < 2; row++) {
       if(slots[row][col] != null && slots[row][col] === slots[row+1][col] && slots[row][col] === slots[row+2][col] && slots[row][col] === slots[row+3][col]){
-        console.log("Found winnder: vertical");
         return slots[row][col];}
     }
   }
 
   //checking diaganol: 1
-  for(let row = 0; row < 2; row++){
+  for(let row = 0; row < slots.length-3; row++){
     for(let col = 0; col < slots[row].length - 3; col++ ){
       if(slots[row][col] != null && slots[row][col] === slots[row+1][col+1] && slots[row][col] === slots[row+2][col+2] && slots[row][col] === slots[row+3][col+3]) {
-        console.log("Found winnder: diaganol");
         return slots[row][col];}
     }
   }
@@ -69,7 +56,6 @@ function calculateWinner(slots) {
   for(let row = 0; row < slots.length - 3; row++) {
     for(let col = 3; col < slots[row].length; col++) {
       if (slots[row][col] != null && slots[row][col] === slots[row+1][col-1] && slots[row][col] === slots[row+2][col-2] && slots[row][col] === slots[row+3][col-3]){
-        console.log("Found winnder: diaganol");
         return slots[row][col];
     }
   }
@@ -100,7 +86,6 @@ function LobbyList(props) {
 
 
 
-
 const states = {
   NOT_CONNECTED: "not_connected",
   PLAYER_RED: "player_X", //formarly player x
@@ -114,7 +99,6 @@ class Board extends React.Component {
     super(props);
     this.state = {
       slots : Array(6).fill(0).map(row => new Array(7).fill(null)),
-
       redIsNext: true,
       peer: new Peer(),
       peer_id: null,
@@ -209,13 +193,9 @@ class Board extends React.Component {
 
 
   handleFakeClick(x,y) {
-    console.log("Inside of handlefakeclick, recieved: " + x + " , " + y);
     var slots = [];
     for(let i = 0; i < this.state.slots.length; i++){slots[i] = this.state.slots[i].slice();}
-    console.log("Sliced array");
     let move = this.drop_chip(x,y, this.state.slots);
-
-    console.log("received this array from check move function: " + move);
 
 
     if (calculateWinner(slots) || slots[move[0]][move[1]]) {
@@ -224,7 +204,7 @@ class Board extends React.Component {
     }
     let sendData = JSON.stringify(move);
     this.state.conn.send(sendData);
-
+    
     slots[move[0]][move[1]] = this.state.redIsNext? 'X' : 'O';
     this.setState({
       slots: slots,

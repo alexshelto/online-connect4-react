@@ -22,6 +22,7 @@ ol, ul {
   margin-bottom: 10px;
 }
 
+
 .slot {
   background-color: #444444;
   color: white;
@@ -54,8 +55,7 @@ input#remotepeer {
   height: 3vw;
   font-size: 2.5vw;
   line-height: 2vw;
-  background-color: 
-  #fff;
+  background-color:#fff;
   border: none;
   margin: 0;
   padding: 0;
@@ -81,7 +81,7 @@ input.connect-button:active {
   background-color: #004ba0;
 }
 
-.square:focus {
+.slot:focus {
   outline: none;
 }
 
