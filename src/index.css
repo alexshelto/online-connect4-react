@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Fira Code', monospace;
-  font-size: 2vw;
+  font-size: 1.5vw;
   margin: 20px;
   background-color: #1d1d1d;
   color: white;
@@ -27,11 +27,11 @@ ol, ul {
   background-color: #444444;
   color: white;
   border: 0.1vw solid #fff;
-  width: 6vw;
-  height: 6vw;
+  width: 4vw;
+  height: 4vw;
   line-height: 0;
   float: left;
-  font-size: 7vw;
+  font-size: 5vw;
   font-weight: bold;
   font-family: 'Space Mono', monospace;
   margin-right: -1px;
@@ -78,6 +78,7 @@ input.connect-button {
 }
 
 input.connect-button:active {
+  /* size: 50%; */
   background-color: #004ba0;
 }
 

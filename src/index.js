@@ -85,7 +85,6 @@ function LobbyList(props) {
 }
 
 
-
 const states = {
   NOT_CONNECTED: "not_connected",
   PLAYER_RED: "player_X", //formarly player x
