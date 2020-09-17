@@ -5,8 +5,7 @@
 ![alt text](https://raw.githubusercontent.com/alexshelto/online-connect4-react/master/screenshots/screenshot.jpg)
 
 ## How to access the webpage
-https://ipfs.io/ipfs/QmZkh6ZrTfkf2SssVefKWbP3oXgchNDXDQavZVoSJWrEMj
-
+https://ipfs.infura.io/ipfs/Qme2PkhmAp5A9xAHwx937GBxF3qyX8vfVrtQbeLEUGbhq8
 
 
 
